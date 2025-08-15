@@ -1,12 +1,13 @@
-// src/utils/date-mapping.ts
+// src/adapters/node/date-mapping.ts - Node.js 전용 구현
 import { readFileSync } from 'fs';
 import path from 'path';
-import type { DateMappings } from '../types';
+import type { DateMappingProvider, DateMappingData } from '../../core/date-mapping-interface';
+import type { DateMappings } from '../../types';
 
-export class DateMappingLoader {
+export class NodeDateMappingLoader implements DateMappingProvider {
   private dateMappings: DateMappings;
 
-  constructor(private mappingsPath: string = path.join(__dirname, '../dates_mapping.json')) {
+  constructor(private mappingsPath: string = path.join(__dirname, '../../dates_mapping.json')) {
     this.dateMappings = this.loadDateMappings();
   }
 
@@ -24,5 +25,9 @@ export class DateMappingLoader {
       throw new Error(`No date mapping found for ${year}-${month}-${day}`);
     }
     return this.dateMappings[year][month][day];
+  }
+
+  public getDateMappingData(): DateMappingData {
+    return { mappings: this.dateMappings };
   }
 }

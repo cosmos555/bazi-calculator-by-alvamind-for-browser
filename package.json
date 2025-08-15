@@ -1,27 +1,48 @@
 {
-  "name": "bazi-calculator-by-alvamind",
-  "version": "1.0.2",
-  "description": "A comprehensive Bazi calculator for Node.js",
-  "main": "dist/index.js",
+  "name": "bazi-calculator-by-alvamind-for-browser",
+  "version": "1.0.0",
+  "description": "A comprehensive Bazi calculator for browsers and Node.js",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "unpkg": "dist/index.iife.js",
+  "jsdelivr": "dist/index.iife.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "import": "./dist/node.js",
+      "require": "./dist/node.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alvamind/bazi-calculator-by-alvamind.git"
   },
-  "files": [
-    "dist",
-    "src",
-    "README.md"
-  ],
   "scripts": {
-    "build": "tsc && tsc -p tsconfig.build.json",
-    "publish-npm": "publish-npm patch",
-    "lint": "eslint src*.ts",
-    "format": "prettier --write \"src*.ts\"",
-    "source": "generate-source output=documentation.md exclude=dist/,node_modules/,.git/",
-    "commit": "commit",
-    "clean": "clean",
-    "split-code": "split-code source=combined.ts markers=src/,lib/ outputDir=./output"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build && npm run test"
   },
   "keywords": [
     "bazi",
@@ -29,15 +50,31 @@
     "chinese",
     "astrology",
     "fengshui",
-    "four pillars"
+    "four pillars",
+    "browser",
+    "react",
+    "typescript"
   ],
   "author": "Alvamind",
   "license": "MIT",
-  "devDependencies": {
-    "@types/bun": "latest"
+  "engines": {
+    "node": ">=16.0.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "rimraf": "^5.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0",
+    "@vitest/ui": "^1.0.0",
+    "@vitest/coverage-v8": "^1.0.0"
   },
   "dependencies": {
     "alvamind-tools": "^1.0.23"
