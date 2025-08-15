@@ -1,6 +1,6 @@
-import type { ElementType } from "./types";
+import type { ElementType } from "../types";
 
-// src/constants.ts
+// src/core/constants.ts - 순수한 상수 데이터
 export const STEMS = [
   '甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸',
 ];

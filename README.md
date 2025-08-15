@@ -1,264 +1,337 @@
-# Bazi Calculator by Alvamind 八字计算器
+# Bazi Calculator
 
-<div align="center">
+A comprehensive Bazi (Four Pillars) calculator for browsers and Node.js environments, built with TypeScript and designed for modern web applications.
 
-[![npm version](https://badge.fury.io/js/bazi-calculator-by-alvamind.svg)](https://badge.fury.io/js/bazi-calculator-by-alvamind)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
-[![Downloads](https://img.shields.io/npm/dt/bazi-calculator-by-alvamind.svg)](https://www.npmjs.com/package/bazi-calculator-by-alvamind)
+## Features
 
-A modern, accurate, and comprehensive Bazi (八字 / Four Pillars of Destiny) calculator and analyzer for Node.js environments.
+- 🎯 **Isomorphic Design**: Works seamlessly in both browser and Node.js environments
+- 🌐 **Browser Optimized**: Built for React, Vue, and other modern frameworks
+- 📱 **Responsive**: Mobile-friendly design with modern UI
+- 🔧 **TypeScript**: Full TypeScript support with strict type checking
+- 📦 **Tree-shakable**: Optimized for modern bundlers with zero side effects
+- 🚀 **Fast**: Built with esbuild for optimal performance
 
-[Installation](#installation) • [Quick Start](#quick-start) • [Documentation](#detailed-documentation) • [Contributing](#contributing)
-
-</div>
-
-## 📢 Disclaimer
-
-This package is provided for educational and research purposes only. The calculations and interpretations should not be used as the sole basis for making important life decisions. Chinese Metaphysics and Bazi analysis require professional expertise and years of study.
-
-## ✨ Features
-
-### Core Calculations
-- **Four Pillars (四柱)**
-  - Year Pillar (年柱)
-  - Month Pillar (月柱)
-  - Day Pillar (日柱)
-  - Hour Pillar (時柱)
-- **Solar/Lunar Calendar Conversions**
-- **Precise Time Calculations**
-
-### Analysis Components
-- **Five Elements (五行) Analysis**
-  - Element Distribution
-  - Element Relationships
-  - Element Strength Calculations
-- **Day Master (日主) Analysis**
-  - Yin/Yang Nature
-  - Element Properties
-  - Stem Relationships
-- **Eight Mansions (八宅) Feng Shui**
-  - Life Gua Calculation
-  - Direction Analysis
-  - Lucky/Unlucky Sectors
-- **Destiny Indicators**
-  - Nobleman (貴人)
-  - Intelligence Star (文昌)
-  - Sky Horse (天馬)
-  - Peach Blossom (桃花)
-
-### Technical Features
-- 🔒 Type-safe with TypeScript
-- 📦 ES Module Support
-- 🏗️ SOLID Architecture
-- 🔄 JSON-based Date Mapping
-- 📝 Comprehensive Type Definitions
-- ⚡ Optimized Performance
-
-## 🚀 Installation
+## Installation
 
 ```bash
-# Using npm
-npm install bazi-calculator-by-alvamind
-
-# Using yarn
-yarn add bazi-calculator-by-alvamind
-
-# Using pnpm
-pnpm add bazi-calculator-by-alvamind
+npm install @alvamind/bazi-calculator
 ```
 
-## 🎯 Quick Start
+## Quick Start
+
+### Browser/React Usage
 
 ```typescript
-import { BaziCalculator } from 'bazi-calculator-by-alvamind';
+import { createBaziCalculator } from '@alvamind/bazi-calculator';
 
-// Initialize calculator
-const calculator = new BaziCalculator(
-  1990,    // Year
-  5,       // Month
-  10,      // Day
-  12,      // Hour (24-hour format)
-  'male'   // Gender
-);
+// Create a calculator instance
+const calculator = createBaziCalculator(1990, 1, 1, 12, 'male');
+
+// Calculate pillars
+const pillars = calculator.calculatePillars();
+console.log(pillars.year.chinese); // 甲子
 
 // Get complete analysis
 const analysis = calculator.getCompleteAnalysis();
-
-// Display Chinese characters
-console.log(calculator.toString()); // 庚午年辛巳月乙酉日壬午時
+console.log(analysis.basicAnalysis.lifeGua); // 1
 ```
 
-## 📖 Detailed Documentation
+### Node.js Usage
 
-### Basic Usage
-
-#### Getting Basic Analysis
 ```typescript
-const basicAnalysis = calculator.calculateBasicAnalysis();
-```
+import { createBaziCalculator } from '@alvamind/bazi-calculator/node';
 
-#### Calculating Pillars Only
-```typescript
+// Create a calculator instance for Node.js
+const calculator = createBaziCalculator(1990, 1, 1, 12, 'male');
+
+// Use the same API
 const pillars = calculator.calculatePillars();
 ```
 
-### Example Output
+### CDN (UMD) Usage
 
-<details>
-<summary>Click to view complete analysis output</summary>
-
-```json
-{
-  "mainPillars": {
-    "year": {
-      "chinese": "庚午",
-      "element": "METAL",
-      "animal": "Horse",
-      "branch": { "element": "FIRE" }
-    },
-    "month": {
-      "chinese": "辛巳",
-      "element": "METAL",
-      "animal": "Snake",
-      "branch": { "element": "FIRE" }
-    },
-    "day": {
-      "chinese": "乙酉",
-      "element": "WOOD",
-      "animal": "Rooster",
-      "branch": { "element": "METAL" }
-    },
-    "time": {
-      "chinese": "壬午",
-      "element": "WATER",
-      "animal": "Horse",
-      "branch": { "element": "FIRE" }
-    }
-  },
-  "basicAnalysis": {
-    "lifeGua": 1,
-    "dayMaster": {
-      "stem": "乙",
-      "nature": "Yin",
-      "element": "WOOD"
-    },
-    "nobleman": ["子", "申"],
-    "intelligence": "巳",
-    "skyHorse": "卯",
-    "peachBlossom": "酉",
-    "fiveFactors": {
-      "WOOD": 13,
-      "FIRE": 38,
-      "EARTH": 0,
-      "METAL": 38,
-      "WATER": 12
-    },
-    "eightMansions": {
-      "group": "East",
-      "lucky": {
-        "wealth": "SE",
-        "health": "E",
-        "romance": "S",
-        "career": "N"
-      },
-      "unlucky": {
-        "obstacles": "NW",
-        "quarrels": "W",
-        "setbacks": "SW",
-        "totalLoss": "NE"
-      }
-    }
-  }
-}
+```html
+<script src="https://unpkg.com/@alvamind/bazi-calculator"></script>
+<script>
+  const calculator = window.BaziCalculator.createBaziCalculator(1990, 1, 1, 12, 'male');
+  const pillars = calculator.calculatePillars();
+  console.log(pillars.year.chinese);
+</script>
 ```
-</details>
 
-### API Reference
+## API Reference
 
-#### BaziCalculator Class
+### Core Classes
+
+#### `BaziCalculator`
+
+Main calculator class for Bazi calculations.
 
 ```typescript
 class BaziCalculator {
   constructor(
-    year: number,     // Gregorian year
-    month: number,    // Month (1-12)
-    day: number,      // Day (1-31)
-    hour: number,     // Hour (0-23)
-    gender?: GenderType // 'male' | 'female'
+    year: number,
+    month: number,
+    day: number,
+    hour: number,
+    gender: 'male' | 'female',
+    dateMappingProvider: DateMappingProvider
   )
-
-  // Main methods
-  calculatePillars(): Pillars
-  calculateBasicAnalysis(): BasicAnalysis
-  getCompleteAnalysis(): CompleteAnalysis
-  toString(): string
 }
 ```
 
-## 🤝 Contributing
+**Methods:**
 
-We welcome contributions! See our [Contributing Guidelines](CONTRIBUTING.md) for details.
+- `calculatePillars()`: Returns the four pillars (year, month, day, time)
+- `calculateBasicAnalysis()`: Returns basic analysis including life gua, day master, etc.
+- `getCompleteAnalysis()`: Returns complete analysis with pillars and basic analysis
+- `toString()`: Returns formatted string representation
 
-### Development Setup
+#### `PillarCalculator`
+
+Handles pillar calculations.
+
+#### `AnalysisCalculator`
+
+Handles various analysis calculations like five factors, eight mansions, etc.
+
+### Types
+
+```typescript
+interface Pillar {
+  chinese: string;    // Chinese characters (e.g., "甲子")
+  element: string;    // Element (e.g., "WOOD", "FIRE")
+  animal: string;     // Animal sign (e.g., "Rat", "Ox")
+  branch: {
+    element: string;  // Branch element
+  };
+}
+
+interface Pillars {
+  year: Pillar;
+  month: Pillar;
+  day: Pillar;
+  time: Pillar;
+}
+
+interface BasicAnalysis {
+  lifeGua: number;
+  dayMaster: DayMasterAnalysis;
+  nobleman: string[];
+  intelligence: string;
+  skyHorse: string;
+  peachBlossom: string;
+  fiveFactors: FiveFactors;
+  eightMansions: EightMansions;
+}
+```
+
+## Advanced Usage
+
+### Custom Date Mapping Provider
+
+```typescript
+import { BaziCalculator } from '@alvamind/bazi-calculator';
+import type { DateMappingProvider } from '@alvamind/bazi-calculator';
+
+class CustomDateMappingProvider implements DateMappingProvider {
+  getMapping(year: number, month: number, day: number) {
+    // Custom implementation
+    return { HYear: 1, EYear: 1, HMonth: 1, EMonth: 1, HDay: 1, EDay: 1 };
+  }
+}
+
+const provider = new CustomDateMappingProvider();
+const calculator = new BaziCalculator(1990, 1, 1, 12, 'male', provider);
+```
+
+### Error Handling
+
+```typescript
+try {
+  const calculator = createBaziCalculator(1990, 1, 1, 12, 'male');
+  const result = calculator.calculatePillars();
+} catch (error) {
+  if (error instanceof Error) {
+    console.error('Calculation failed:', error.message);
+  }
+}
+```
+
+## Examples
+
+### React Component
+
+```tsx
+import React, { useState } from 'react';
+import { createBaziCalculator } from '@alvamind/bazi-calculator';
+
+function BaziCalculatorComponent() {
+  const [result, setResult] = useState(null);
+
+  const calculate = () => {
+    const calculator = createBaziCalculator(1990, 1, 1, 12, 'male');
+    const pillars = calculator.calculatePillars();
+    setResult(pillars);
+  };
+
+  return (
+    <div>
+      <button onClick={calculate}>Calculate Bazi</button>
+      {result && (
+        <div>
+          <p>Year: {result.year.chinese}</p>
+          <p>Month: {result.month.chinese}</p>
+          <p>Day: {result.day.chinese}</p>
+          <p>Time: {result.time.chinese}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+### Node.js Script
+
+```typescript
+import { createBaziCalculator } from '@alvamind/bazi-calculator/node';
+
+function analyzePerson(year: number, month: number, day: number, hour: number, gender: 'male' | 'female') {
+  const calculator = createBaziCalculator(year, month, day, hour, gender);
+  
+  const analysis = calculator.getCompleteAnalysis();
+  
+  console.log('=== Bazi Analysis ===');
+  console.log(`Life Gua: ${analysis.basicAnalysis.lifeGua}`);
+  console.log(`Day Master: ${analysis.basicAnalysis.dayMaster.stem} (${analysis.basicAnalysis.dayMaster.element})`);
+  console.log(`Five Factors:`, analysis.basicAnalysis.fiveFactors);
+  
+  return analysis;
+}
+
+// Usage
+analyzePerson(1990, 1, 1, 12, 'male');
+```
+
+## Browser Support
+
+- Chrome 80+
+- Firefox 75+
+- Safari 13+
+- Edge 80+
+
+## Tree Shaking
+
+The library is fully tree-shakable. Unused code will be automatically removed by modern bundlers:
+
+```typescript
+// Only imports what you use
+import { createBaziCalculator } from '@alvamind/bazi-calculator';
+
+// Unused exports are automatically removed
+```
+
+## Development
+
+### Prerequisites
+
+- Node.js 16+
+- npm or yarn
+
+### Setup
 
 ```bash
-# Clone repository
-git clone https://github.com/yourusername/bazi-calculator-by-alvamind.git
+# Clone the repository
+git clone https://github.com/alvamind/bazi-calculator-by-alvamind.git
+cd bazi-calculator-by-alvamind
 
 # Install dependencies
 npm install
 
+# Build the library
+npm run build
+
 # Run tests
 npm test
 
-# Build
-npm run build
+# Run linting
+npm run lint
+
+# Format code
+npm run format
 ```
 
-## 📝 Important Notes
+### Project Structure
 
-### Calculation Methods
-- Solar calendar based calculations
-- Traditional Chinese time system (12 two-hour periods)
-- Standard Stem-Branch (干支) system
-- Eight Mansions Feng Shui principles
+```
+src/
+├── core/                    # Runtime-agnostic logic
+│   ├── bazi-calculator.ts
+│   ├── pillar-calculator.ts
+│   ├── analysis-calculator.ts
+│   ├── constants.ts
+│   └── date-mapping-interface.ts
+├── adapters/               # Runtime-specific implementations
+│   ├── browser/           # Browser-specific code
+│   └── node/              # Node.js-specific code
+├── types.ts               # Type definitions
+├── index.ts               # Browser entry point
+└── node.ts                # Node.js entry point
+```
 
-### Limitations
-- Time zone considerations
-- Lunar calendar approximations
-- Regional variations in interpretations
+### Testing
 
-## 🙏 Acknowledgements
+```bash
+# Run all tests
+npm test
 
-- Traditional Chinese Metaphysics texts and masters
-- Modern Bazi research and practitioners
-- Open source community contributors
-- Chinese calendar conversion references
+# Run tests with coverage
+npm run test:coverage
 
-## 📄 License
+# Run tests in watch mode
+npm run test:watch
 
-MIT License - see the [LICENSE](LICENSE) file for details.
+# Run tests with UI
+npm run test:ui
+```
 
-## 💬 Support
+### Building
 
-- 📧 Email: support@alvamind.com
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/bazi-calculator-by-alvamind/issues)
-- 📚 Wiki: [Documentation](https://github.com/yourusername/bazi-calculator-by-alvamind/wiki)
+```bash
+# Build for production
+npm run build
 
-## 🌟 References
+# Build in watch mode
+npm run dev
 
-1. Chinese Metaphysics Classics
-2. Modern Bazi Analysis Methods
-3. Traditional Calendar Systems
-4. Stem-Branch Theory
+# Clean build artifacts
+npm run clean
+```
 
----
+## Contributing
 
-<div align="center">
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-**Made with ❤️ by [Alvamind](https://github.com/alvamind)**
+## License
 
-*For professional consultations, please consult a qualified Bazi practitioner.*
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-</div>
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes.
+
+## Support
+
+- 📧 Email: [your-email@example.com]
+- 🐛 Issues: [GitHub Issues](https://github.com/alvamind/bazi-calculator-by-alvamind/issues)
+- 📖 Documentation: [GitHub Wiki](https://github.com/alvamind/bazi-calculator-by-alvamind/wiki)
+
+## Acknowledgments
+
+- Traditional Chinese astrology principles
+- Modern web development best practices
+- Open source community contributions
