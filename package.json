@@ -1,5 +1,5 @@
 {
-  "name": "@alvamind/bazi-calculator",
+  "name": "bazi-calculator-by-alvamind-for-browser",
   "version": "1.0.0",
   "description": "A comprehensive Bazi calculator for browsers and Node.js",
   "type": "module",
